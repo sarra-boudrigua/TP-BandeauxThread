@@ -1,5 +1,8 @@
 package bandeau;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExempleDeScenario {
 
     /**
@@ -29,13 +32,19 @@ public class ExempleDeScenario {
         
         // On cree les bandeaux
         Bandeau b1 = new Bandeau();
-        //Bandeau b2 = new Bandeau();
+        Bandeau b2 = new Bandeau();
+        List<Bandeau> l1 = new ArrayList<Bandeau>();
+        l1.add(b1);
+        l1.add(b2);
         //Bandeau b3 = new Bandeau();
         System.out.println("CTRL+C pour terminer le programme");
         // On doit jouer le scénario en même temps sur plusieurs bandeaux :
-        s.playOn(b1);
-        //s.playOn(b2);
-        
+       // s.playOn(b1);
+       // s.playOn(b2);
+        for (Bandeau b : l1) {
+            Thread t = new Thread(new Scenario.ScenarioRunnable(s, b));
+            t.start();
+        }
         // On ne doit pas pouvoir changer un scénario quand il est en train de se jouer
         try {
             Thread.sleep(10000);
